@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+/certs/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Environment
+.env
+.env.local
+
+# Logs
+logs/
+*.log
+
+# IDE
+.idea/
+.DS_Store
