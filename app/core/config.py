@@ -3,7 +3,7 @@ import os
 from typing import List, Optional
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 class Settings:
     # Настройки приложения
@@ -13,7 +13,7 @@ class Settings:
     DEBUG: bool = os.getenv("DEBUG", "true").lower() == "true"
     
     # AI провайдеры
-    AI_PROVIDER: str = os.getenv("AI_PROVIDER", "mock")
+    AI_PROVIDER: str = os.getenv("AI_PROVIDER", "yandexgpt")
     
     # Hugging Face
     HUGGINGFACE_API_KEY: Optional[str] = os.getenv("HUGGINGFACE_API_KEY")
@@ -27,6 +27,13 @@ class Settings:
     DEEPSEEK_API_KEY: Optional[str] = os.getenv("DEEPSEEK_API_KEY")
     DEEPSEEK_API_BASE: Optional[str] = os.getenv("DEEPSEEK_API_BASE")
     DEEPSEEK_MODEL: Optional[str] = os.getenv("DEEPSEEK_MODEL")
+
+    # YandexGPT
+    YANDEX_API_KEY: Optional[str] = os.getenv("YANDEX_API_KEY")
+    YANDEX_IAM_TOKEN: Optional[str] = os.getenv("YANDEX_IAM_TOKEN")
+    YANDEX_FOLDER_ID: Optional[str] = os.getenv("YANDEX_FOLDER_ID")
+    YANDEX_API_BASE: str = os.getenv("YANDEX_API_BASE", "https://llm.api.cloud.yandex.net/v1")
+    YANDEX_MODEL: str = os.getenv("YANDEX_MODEL", "yandexgpt/latest")
 
     # Giga Chat
     # `GIGA_AUTH_KEY` - Authorization key (Basic) issued by provider; used to request short-lived Access token.

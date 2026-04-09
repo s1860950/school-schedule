@@ -60,7 +60,7 @@ No hardcoded secrets or magic values. Settings object is singleton: `from app.co
 
 ### 4. **Request/Response Validation with Pydantic**
 All API inputs/outputs are validated:
-- `GenerationRequest`: min_length=1, max_length=2000 for prompt; temperature 0.1-1.0; max_tokens 1-2000
+- `GenerationRequest`: min_length=1, max_length=5000 for prompt; temperature 0.1-1.0; max_tokens 1-5000
 - `GenerationResponse`: success boolean + conditional fields (generated_text OR error)
 
 Always use Pydantic models for API contracts. Validation happens before your code runs.

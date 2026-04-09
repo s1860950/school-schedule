@@ -2,7 +2,7 @@ import httpx
 import asyncio
 import time
 import uuid
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List, Tuple
 from app.core.config import settings
 import logging
 
@@ -38,6 +38,115 @@ class AIService:
         if not model or model.lower() == "gigachat-default":
             return "GigaChat"
         return model
+
+    def _yandex_api_base(self) -> str:
+        base = settings.YANDEX_API_BASE.rstrip("/")
+        if base.endswith("/foundationModels/v1"):
+            return f"{base[:-20]}/v1"
+        if not base.endswith("/v1"):
+            base = f"{base}/v1"
+        return base
+
+    def _yandex_completion_url(self) -> str:
+        base = settings.YANDEX_API_BASE.rstrip("/")
+        if base.endswith("/foundationModels/v1"):
+            return f"{base}/completion"
+        if base.endswith("/v1"):
+            base = base[:-3]
+        return f"{base}/foundationModels/v1/completion"
+
+    def _yandex_model_uri(self) -> str:
+        model = (settings.YANDEX_MODEL or "").strip()
+        if not model:
+            raise ValueError("YandexGPT model not configured")
+        if model.startswith("gpt://"):
+            return model
+
+        folder_id = (settings.YANDEX_FOLDER_ID or "").strip()
+        if not folder_id:
+            raise ValueError("YANDEX_FOLDER_ID is required when YANDEX_MODEL is not a full gpt:// URI")
+        return f"gpt://{folder_id}/{model}"
+
+    def _yandex_auth_candidates(self) -> List[Tuple[str, str]]:
+        candidates: List[Tuple[str, str]] = []
+        iam_token = (settings.YANDEX_IAM_TOKEN or "").strip()
+        api_key = (settings.YANDEX_API_KEY or "").strip()
+
+        if iam_token:
+            candidates.append(("Bearer", iam_token))
+        if api_key:
+            candidates.append(("Api-Key", api_key))
+
+        if not candidates:
+            raise ValueError("YandexGPT credentials not configured (YANDEX_API_KEY or YANDEX_IAM_TOKEN required)")
+
+        unique_candidates: List[Tuple[str, str]] = []
+        seen = set()
+        for scheme, token in candidates:
+            key = (scheme, token)
+            if key in seen:
+                continue
+            seen.add(key)
+            unique_candidates.append((scheme, token))
+        return unique_candidates
+
+    @staticmethod
+    def _extract_message_content(content: Any) -> str:
+        if isinstance(content, str):
+            return content
+        if isinstance(content, dict):
+            return str(content.get("text") or "")
+        if isinstance(content, list):
+            parts = []
+            for item in content:
+                if isinstance(item, str):
+                    parts.append(item)
+                elif isinstance(item, dict):
+                    text = item.get("text")
+                    if text:
+                        parts.append(str(text))
+            return "".join(parts)
+        return ""
+
+    @staticmethod
+    def _safe_int(value: Any) -> Optional[int]:
+        if value is None:
+            return None
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return None
+
+    def _extract_usage_details(self, usage: Dict[str, Any]) -> Dict[str, Any]:
+        if not isinstance(usage, dict):
+            return {}
+
+        prompt_tokens = self._safe_int(
+            usage.get("prompt_tokens") or usage.get("promptTokens") or usage.get("inputTextTokens")
+        )
+        completion_tokens = self._safe_int(
+            usage.get("completion_tokens") or usage.get("completionTokens") or usage.get("completionTokensCount")
+        )
+
+        completion_details = usage.get("completionTokensDetails") or {}
+        reasoning_tokens = self._safe_int(
+            completion_details.get("reasoningTokens") if isinstance(completion_details, dict) else None
+        )
+
+        total_tokens = self._safe_int(usage.get("total_tokens") or usage.get("totalTokens"))
+        if total_tokens is None and prompt_tokens is not None and completion_tokens is not None:
+            total_tokens = prompt_tokens + completion_tokens
+
+        details: Dict[str, Any] = {}
+        if total_tokens is not None:
+            details["tokens"] = total_tokens
+        if prompt_tokens is not None:
+            details["prompt_tokens"] = prompt_tokens
+        if completion_tokens is not None:
+            details["completion_tokens"] = completion_tokens
+        if reasoning_tokens is not None:
+            details["reasoning_tokens"] = reasoning_tokens
+        return details
         
     async def generate_text_huggingface(self, prompt: str, system_prompt: str, max_tokens: int, temperature: float) -> Dict[str, Any]:
         """Генерация текста через Hugging Face Inference API"""
@@ -114,10 +223,13 @@ class AIService:
                 
                 if response.status_code == 200:
                     data = response.json()
+                    usage_details = self._extract_usage_details(data.get("usage", {}))
+                    first_choice = data.get("choices", [{}])[0] if isinstance(data.get("choices"), list) else {}
                     return {
                         "text": data["choices"][0]["message"]["content"],
                         "model": data["model"],
-                        "tokens": data.get("usage", {}).get("total_tokens", 0)
+                        "finish_reason": first_choice.get("finish_reason"),
+                        **usage_details,
                     }
                 else:
                     logger.error(f"OpenAI API error: {response.status_code} - {response.text}")
@@ -158,10 +270,13 @@ class AIService:
                 
                 if response.status_code == 200:
                     data = response.json()
+                    usage_details = self._extract_usage_details(data.get("usage", {}))
+                    first_choice = data.get("choices", [{}])[0] if isinstance(data.get("choices"), list) else {}
                     return {
                         "text": data["choices"][0]["message"]["content"],
                         "model": data["model"],
-                        "tokens": data.get("usage", {}).get("total_tokens", 0)
+                        "finish_reason": first_choice.get("finish_reason"),
+                        **usage_details,
                     }
                 else:
                     logger.error(f"DeepSeek API error: {response.status_code} - {response.text}")
@@ -170,6 +285,70 @@ class AIService:
             logger.error(f"DeepSeek request failed: {str(e)}")
         
         return {"text": "", "model": settings.DEEPSEEK_MODEL}
+
+    async def generate_text_yandexgpt(self, prompt: str, system_prompt: str, max_tokens: int, temperature: float) -> Dict[str, Any]:
+        """Генерация текста через YandexGPT API."""
+        model_uri = self._yandex_model_uri()
+        folder_id = (settings.YANDEX_FOLDER_ID or "").strip()
+        completion_url = self._yandex_completion_url()
+
+        completion_payload = {
+            "modelUri": model_uri,
+            "completionOptions": {
+                "stream": False,
+                "temperature": temperature,
+                "maxTokens": str(max_tokens)
+            },
+            "messages": [
+                {"role": "system", "text": system_prompt},
+                {"role": "user", "text": prompt}
+            ]
+        }
+
+        last_error = None
+        for scheme, token in self._yandex_auth_candidates():
+            headers = {
+                "Authorization": f"{scheme} {token}",
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+            if folder_id:
+                headers["x-folder-id"] = folder_id
+
+            try:
+                async with httpx.AsyncClient(timeout=self.timeout) as client:
+                    response = await client.post(completion_url, headers=headers, json=completion_payload)
+                    if response.status_code == 200:
+                        data = response.json()
+                        result = data.get("result", data)
+                        alternatives = result.get("alternatives") or data.get("alternatives") or []
+                        first_alternative = alternatives[0] if alternatives else {}
+                        message = first_alternative.get("message", {})
+                        text = message.get("text") or first_alternative.get("text") or ""
+                        alternative_status = first_alternative.get("status")
+                        usage = result.get("usage", {}) or data.get("usage", {})
+                        usage_details = self._extract_usage_details(usage)
+
+                        return {
+                            "text": text,
+                            "model": result.get("modelVersion", model_uri),
+                            "alternative_status": alternative_status,
+                            "truncated": alternative_status == "ALTERNATIVE_STATUS_TRUNCATED_FINAL",
+                            **usage_details,
+                        }
+
+                    last_error = f"{response.status_code}: {response.text}"
+                    logger.debug("YandexGPT completion failed with %s", last_error)
+
+            except Exception as e:
+                last_error = str(e)
+                logger.debug("YandexGPT request failed: %s", e)
+
+        if last_error:
+            logger.error("YandexGPT request failed, last error: %s", last_error)
+            raise ValueError(last_error)
+
+        return {"text": "", "model": model_uri}
 
     async def generate_text_gigachat(self, prompt: str, system_prompt: str, max_tokens: int, temperature: float) -> Dict[str, Any]:
         """Генерация текста через Giga Chat API (OpenAI-совместимый интерфейс)"""
@@ -259,10 +438,13 @@ class AIService:
                                             break
 
                             if text:
+                                usage_details = self._extract_usage_details(data.get("usage", {}))
+                                first_choice = data.get("choices", [{}])[0] if isinstance(data.get("choices"), list) else {}
                                 return {
                                     "text": text,
                                     "model": data.get("model", giga_model),
-                                    "tokens": data.get("usage", {}).get("total_tokens", 0)
+                                    "finish_reason": first_choice.get("finish_reason"),
+                                    **usage_details,
                                 }
 
                         # non-success — log and try next attempt / endpoint
@@ -394,9 +576,9 @@ class AIService:
     async def generate_text(self, request_data: Dict[str, Any]) -> Dict[str, Any]:
         """Основной метод генерации текста"""
         provider = request_data.get("provider", settings.AI_PROVIDER)
-        prompt = request_data.get("prompt", "")
+        prompt = request_data.get("prompt", "Сгенерируй расписание на неделю для начальных классов (всего 1-4 - 4 класса), на 5 дней в неделю. Предметы - изо, труд, физкультура, музыка - не должны накладываться друг на друга. У 1го класса максимум 5 уроков, у других - 6. У каждого класса свой классный руководитель. Предметы не доложны повторяться в один день для одного класса. Расписание должно быть в виде таблицы с указанием времени, предмета и классного руководителя. Время уроков: 8:30-9:15, 9:30-10:15, 10:30-11:15, 11:30-12:15, 13:00-13:45, 14:00-14:45.")
         system_prompt = request_data.get("system_prompt", "Ты - полезный AI ассистент.")
-        max_tokens = request_data.get("max_tokens", 500)
+        max_tokens = request_data.get("max_tokens", 700)
         temperature = request_data.get("temperature", 0.7)
         
         try:
@@ -406,17 +588,26 @@ class AIService:
                 result = await self.generate_text_openai(prompt, system_prompt, max_tokens, temperature)
             elif provider == "deepseek":
                 result = await self.generate_text_deepseek(prompt, system_prompt, max_tokens, temperature)
+            elif provider == "yandexgpt":
+                result = await self.generate_text_yandexgpt(prompt, system_prompt, max_tokens, temperature)
             elif provider == "gigachat":
                 result = await self.generate_text_gigachat(prompt, system_prompt, max_tokens, temperature)
             else:
-                result = await self.generate_text_huggingface(prompt, system_prompt, max_tokens, temperature)
+                provider = "yandexgpt"
+                result = await self.generate_text_yandexgpt(prompt, system_prompt, max_tokens, temperature)
             
             return {
                 "success": True,
                 "generated_text": result.get("text", ""),
                 "provider": provider,
                 "model": result.get("model"),
-                "tokens_used": result.get("tokens")
+                "tokens_used": result.get("tokens"),
+                "prompt_tokens": result.get("prompt_tokens"),
+                "completion_tokens": result.get("completion_tokens"),
+                "reasoning_tokens": result.get("reasoning_tokens"),
+                "finish_reason": result.get("finish_reason"),
+                "alternative_status": result.get("alternative_status"),
+                "truncated": result.get("truncated"),
             }
             
         except Exception as e:

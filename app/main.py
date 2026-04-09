@@ -1,5 +1,7 @@
 from fastapi import FastAPI
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from app.api.endpoints import ai
 from app.core.config import settings
 import uvicorn
@@ -60,3 +62,41 @@ async def generic_exception_handler(request, exc):
         status_code=500,
         content={"detail": f"Internal server error: {str(exc)}"}
     )
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request, exc):
+    detail = exc.errors()
+    content_type = request.headers.get("content-type", "")
+
+    if request.url.path == "/api/v1/generate":
+        hint = (
+            "Use JSON like {\"prompt\": \"...\", \"provider\": \"yandexgpt\"} "
+            "or send plain text with Content-Type: text/plain."
+        )
+        if content_type and not any(
+            marker in content_type.lower()
+            for marker in (
+                "application/json",
+                "text/plain",
+                "application/x-www-form-urlencoded",
+                "multipart/form-data",
+            )
+        ):
+            return JSONResponse(
+                status_code=415,
+                content={
+                    "detail": "Unsupported media type for /api/v1/generate.",
+                    "hint": hint,
+                },
+            )
+
+        return JSONResponse(
+            status_code=422,
+            content={
+                "detail": detail,
+                "hint": hint,
+            },
+        )
+
+    return JSONResponse(status_code=422, content={"detail": detail})

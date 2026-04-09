@@ -1,0 +1,18 @@
+{
+    "completionOptions":  {
+                              "maxTokens":  "100",
+                              "stream":  false,
+                              "temperature":  0.1
+                          },
+    "messages":  [
+                     {
+                         "text":  "Ты полезный ассистент. Отвечай по-русски.",
+                         "role":  "system"
+                     },
+                     {
+                         "text":  "Напиши одно предложение о FastAPI.",
+                         "role":  "user"
+                     }
+                 ],
+    "modelUri":  "gpt://b1g15kn0ej0etlc2ck1a/yandexgpt/latest"
+}
