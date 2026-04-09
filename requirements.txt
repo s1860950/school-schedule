@@ -5,3 +5,4 @@ httpx==0.25.1
 pydantic==1.10.13  # Старая версия без Rust
 aiohttp==3.9.1
 gigachat
+openpyxl==3.11.0

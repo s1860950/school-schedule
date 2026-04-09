@@ -1,12 +1,14 @@
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from app.api.endpoints import ai
 from app.core.config import settings
 import uvicorn
 import logging
 import traceback
+import os
 
 app = FastAPI(
     title=settings.APP_NAME,
@@ -29,12 +31,17 @@ app.include_router(ai.router, prefix="/api/v1", tags=["AI"])
 
 @app.get("/")
 async def root():
+    """Возвращает главную HTML страницу приложения"""
+    template_path = os.path.join(os.path.dirname(__file__), "templates", "index.html")
+    if os.path.exists(template_path):
+        return FileResponse(template_path, media_type="text/html")
     return {
         "message": "Добро пожаловать в AI API",
         "version": settings.APP_VERSION,
         "docs": "/docs",
         "endpoints": {
             "generate_text": "POST /api/v1/generate",
+            "generate_excel": "POST /api/v1/generate-excel",
             "health": "GET /health"
         }
     }

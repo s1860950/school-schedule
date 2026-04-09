@@ -10,6 +10,8 @@ from pydantic import ValidationError
 from app.core.config import settings
 from app.schemas.ai import AIProvider, MAX_OUTPUT_TOKENS, PROMPT_MAX_LENGTH, GenerationRequest, GenerationResponse
 from app.services.ai_service import ai_service
+from app.services.schedule_utils import create_schedule_excel
+from fastapi.responses import StreamingResponse
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -290,3 +292,37 @@ async def get_available_providers():
             },
         ]
     }
+
+
+@router.post("/generate-excel")
+async def generate_excel(request: Request):
+    """
+    Генерирует Excel файл из текста расписания
+    """
+    try:
+        body = await request.json()
+        schedule_text = body.get("schedule_text", "")
+        
+        if not schedule_text:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="schedule_text is required"
+            )
+        
+        # Создаём Excel файл
+        excel_file = create_schedule_excel(schedule_text)
+        
+        return StreamingResponse(
+            iter([excel_file.getvalue()]),
+            media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            headers={"Content-Disposition": "attachment; filename=schedule.xlsx"}
+        )
+    
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.exception("Error generating Excel file")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error generating Excel file: {str(exc)}"
+        )
