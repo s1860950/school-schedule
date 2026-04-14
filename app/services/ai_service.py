@@ -4,6 +4,7 @@ import time
 import uuid
 from typing import Dict, Any, Optional, List, Tuple
 from app.core.config import settings
+from app.services.schedule_utils import enforce_monday_class_hour
 import logging
 
 logger = logging.getLogger(__name__)
@@ -576,9 +577,20 @@ class AIService:
     async def generate_text(self, request_data: Dict[str, Any]) -> Dict[str, Any]:
         """Основной метод генерации текста"""
         provider = request_data.get("provider", settings.AI_PROVIDER)
-        prompt = request_data.get("prompt", "Сгенерируй расписание на неделю для начальных классов (всего 1-4 - 4 класса), на 5 дней в неделю. Предметы - изо, труд, физкультура, музыка - не должны накладываться друг на друга. У 1го класса максимум 5 уроков, у других - 6. У каждого класса свой классный руководитель. Предметы не доложны повторяться в один день для одного класса. Расписание должно быть в виде таблицы с указанием времени, предмета и классного руководителя. Время уроков: 8:30-9:15, 9:30-10:15, 10:30-11:15, 11:30-12:15, 13:00-13:45, 14:00-14:45.")
-        system_prompt = request_data.get("system_prompt", "Ты - полезный AI ассистент.")
-        max_tokens = request_data.get("max_tokens", 700)
+        prompt = request_data.get(
+            "prompt",
+            "Сгенерируй расписание на неделю для начальных классов 1-4. "
+            "В понедельник у каждого класса первым уроком обязательно поставь разговоры о важном. "
+            "Предметы изо, труд, физкультура и музыка не должны накладываться друг на друга. "
+            "Предметы не должны повторяться в один день для одного класса. "
+            "Расписание должно быть в виде markdown-таблиц с указанием времени и предмета. "
+            "Время уроков: 8:30-9:15, 9:30-10:15, 10:30-11:15, 11:30-12:15."
+        )
+        system_prompt = request_data.get(
+            "system_prompt",
+            "Ты - полезный ассистент. В понедельник у каждого класса первый урок должен быть 'Разговоры о важном'."
+        )
+        max_tokens = request_data.get("max_tokens", 3000)
         temperature = request_data.get("temperature", 0.7)
         
         try:
@@ -596,9 +608,11 @@ class AIService:
                 provider = "yandexgpt"
                 result = await self.generate_text_yandexgpt(prompt, system_prompt, max_tokens, temperature)
             
+            generated_text = enforce_monday_class_hour(result.get("text", ""))
+
             return {
                 "success": True,
-                "generated_text": result.get("text", ""),
+                "generated_text": generated_text,
                 "provider": provider,
                 "model": result.get("model"),
                 "tokens_used": result.get("tokens"),

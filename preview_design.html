@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Предпросмотр красивого дизайна расписания</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: white;
+            padding: 45px;
+            border-radius: 14px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 12px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-bottom: 30px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .schedule-table thead {
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            color: white;
+        }
+
+        .schedule-table th {
+            padding: 18px 14px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.3px;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .schedule-table th:first-child {
+            text-align: center;
+            min-width: 110px;
+        }
+
+        .schedule-table td {
+            padding: 16px 14px;
+            border: 1px solid #e8eef7;
+            font-size: 15px;
+            color: #2c3e50;
+            text-align: center;
+            vertical-align: middle;
+            height: 60px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .schedule-table tbody tr {
+            border-bottom: 1px solid #e8eef7;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-table tbody tr:hover {
+            background: linear-gradient(90deg, #f0f4ff 0%, #f8f9ff 100%);
+            box-shadow: inset 0 2px 8px rgba(102, 126, 234, 0.08);
+        }
+
+        .schedule-table tbody tr[data-day-separator] {
+            height: 40px;
+        }
+
+        .schedule-table tbody tr[data-day-separator] td {
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            color: white;
+            font-weight: 700;
+            padding: 14px 14px;
+            border: none;
+            text-align: left;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+        }
+
+        .schedule-table tbody tr[data-day-separator]:hover {
+            background: linear-gradient(135deg, #5567d8 0%, #6a3c8a 100%);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .schedule-table .time-cell {
+            font-weight: 800;
+            color: #667EEA;
+            background: linear-gradient(135deg, #f5f7ff 0%, #f0f4ff 100%);
+            text-align: center;
+            border-right: 2px solid #667EEA;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .schedule-table .time-cell:hover {
+            background: linear-gradient(135deg, #ebeef8 0%, #e5e9f0 100%);
+            color: #5567d8;
+        }
+
+        .schedule-table .subject {
+            font-weight: 600;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        .schedule-table tbody tr:hover .subject {
+            color: #667EEA;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin: 40px 0 20px 0;
+            font-size: 20px;
+            letter-spacing: 0.3px;
+        }
+
+        .info {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 10px;
+            padding: 16px 18px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📅 Красивое расписание</h1>
+            <p>Невероятно прекрасный дизайн таблицы расписания</p>
+        </div>
+
+        <h2>Понедельник</h2>
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>Время</th>
+                    <th>1 класс</th>
+                    <th>2 класс</th>
+                    <th>3 класс</th>
+                    <th>4 класс</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="time-cell">8:30-9:15</td>
+                    <td class="subject">Математика</td>
+                    <td class="subject">Русский язык</td>
+                    <td class="subject">Математика</td>
+                    <td class="subject">Русский язык</td>
+                </tr>
+                <tr>
+                    <td class="time-cell">9:30-10:15</td>
+                    <td class="subject">Русский язык</td>
+                    <td class="subject">Математика</td>
+                    <td class="subject">Русский язык</td>
+                    <td class="subject">Математика</td>
+                </tr>
+                <tr>
+                    <td class="time-cell">10:30-11:15</td>
+                    <td class="subject">Физкультура</td>
+                    <td class="subject">Литературное чтение</td>
+                    <td class="subject">Окружающий мир</td>
+                    <td class="subject">Английский язык</td>
+                </tr>
+                <tr>
+                    <td class="time-cell">11:30-12:15</td>
+                    <td class="subject">Музыка</td>
+                    <td class="subject">Физкультура</td>
+                    <td class="subject">Литературное чтение</td>
+                    <td class="subject">Окружающий мир</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Вторник</h2>
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>Время</th>
+                    <th>1 класс</th>
+                    <th>2 класс</th>
+                    <th>3 класс</th>
+                    <th>4 класс</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="time-cell">8:30-9:15</td>
+                    <td class="subject">Русский язык</td>
+                    <td class="subject">Математика</td>
+                    <td class="subject">Русский язык</td>
+                    <td class="subject">Математика</td>
+                </tr>
+                <tr>
+                    <td class="time-cell">9:30-10:15</td>
+                    <td class="subject">Математика</td>
+                    <td class="subject">Русский язык</td>
+                    <td class="subject">Математика</td>
+                    <td class="subject">Русский язык</td>
+                </tr>
+                <tr>
+                    <td class="time-cell">10:30-11:15</td>
+                    <td class="subject">Труд</td>
+                    <td class="subject">Окружающий мир</td>
+                    <td class="subject">Физкультура</td>
+                    <td class="subject">Литературное чтение</td>
+                </tr>
+                <tr>
+                    <td class="time-cell">11:30-12:15</td>
+                    <td class="subject">Литературное чтение</td>
+                    <td class="subject">Физкультура</td>
+                    <td class="subject">Литературное чтение</td>
+                    <td class="subject">Окружающий мир</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="info">
+            <strong>💡 Особенности дизайна:</strong>
+            <ul style="margin-top: 10px; margin-left: 20px;">
+                <li>✨ Фиолетово-синий градиент в заголовке</li>
+                <li>🎨 Красивые тени для объема</li>
+                <li>🌈 Плавные переходы при наведении</li>
+                <li>💫 Отделение дней яркими полосами</li>
+                <li>📊 Четкая структура и читаемость</li>
+                <li>🚀 Современный профессиональный вид</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

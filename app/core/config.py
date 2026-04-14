@@ -33,7 +33,7 @@ class Settings:
     YANDEX_IAM_TOKEN: Optional[str] = os.getenv("YANDEX_IAM_TOKEN")
     YANDEX_FOLDER_ID: Optional[str] = os.getenv("YANDEX_FOLDER_ID")
     YANDEX_API_BASE: str = os.getenv("YANDEX_API_BASE", "https://llm.api.cloud.yandex.net/v1")
-    YANDEX_MODEL: str = os.getenv("YANDEX_MODEL", "yandexgpt/latest")
+    YANDEX_MODEL: str = os.getenv("YANDEX_MODEL", "yandexgpt-5.1/latest")
 
     # Giga Chat
     # `GIGA_AUTH_KEY` - Authorization key (Basic) issued by provider; used to request short-lived Access token.

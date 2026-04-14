@@ -31,109 +31,127 @@
 
         .container {
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 40px;
-            max-width: 900px;
+            border-radius: 14px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            padding: 45px;
+            max-width: 1300px;
             width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid rgba(102, 126, 234, 0.1);
         }
 
         .header h1 {
-            color: #333;
-            font-size: 28px;
-            margin-bottom: 10px;
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 12px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
         .header p {
-            color: #666;
-            font-size: 14px;
+            color: #7f8c8d;
+            font-size: 15px;
+            font-weight: 500;
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 28px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 600;
-            font-size: 14px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.3px;
         }
 
         .form-group textarea {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            padding: 14px 16px;
+            border: 2px solid #e8eef7;
+            border-radius: 10px;
             font-family: inherit;
-            font-size: 14px;
+            font-size: 15px;
             resize: vertical;
             min-height: 120px;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #f9faff 0%, #f5f7ff 100%);
+            color: #2c3e50;
         }
 
         .form-group textarea:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #667EEA;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+            background: white;
         }
 
         .form-group input[type="text"],
         .form-group input[type="number"],
         .form-group select {
             width: 100%;
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            padding: 12px 14px;
+            border: 2px solid #e8eef7;
+            border-radius: 10px;
             font-family: inherit;
-            font-size: 14px;
-            transition: border-color 0.3s;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #f9faff 0%, #f5f7ff 100%);
+            color: #2c3e50;
         }
 
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #667EEA;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+            background: white;
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 25px;
         }
 
         .button-group {
             display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
+            gap: 12px;
+            margin-bottom: 30px;
         }
 
         button {
             flex: 1;
-            padding: 12px 20px;
+            padding: 14px 24px;
             border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .btn-generate {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
             color: white;
         }
 
         .btn-generate:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
         }
 
         .btn-generate:active {
@@ -147,14 +165,13 @@
         }
 
         .btn-download {
-            background: #4CAF50;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
             color: white;
         }
 
         .btn-download:hover {
-            background: #45a049;
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
         }
 
         .btn-download:active {
@@ -162,17 +179,24 @@
         }
 
         .btn-download:disabled {
-            background: #ccc;
+            background: #cbd5e0;
             cursor: not-allowed;
+            box-shadow: none;
         }
 
         .btn-reset {
-            background: #ff9800;
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
             color: white;
         }
 
         .btn-reset:hover {
-            background: #e68900;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+            background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
+        }
+
+        .btn-reset:active {
+            transform: translateY(0);
         }
 
         .loader {
@@ -197,83 +221,277 @@
         }
 
         .result-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f5f5f5;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
+            margin-top: 35px;
+            padding: 28px;
+            background: linear-gradient(180deg, #f7f8ff 0%, #ffffff 100%);
+            border-radius: 22px;
+            border: 1px solid rgba(112, 129, 229, 0.18);
+            box-shadow: 0 22px 55px rgba(81, 99, 187, 0.12);
         }
 
         .result-section h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 16px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
 
-        .result-text {
-            color: #555;
+        .schedule-info-bar {
+            display: flex;
+            gap: 16px;
+            padding: 16px 18px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            flex-wrap: wrap;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .schedule-info-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+        }
+
+        .schedule-info-item strong {
+            color: #667EEA;
+            font-weight: 700;
+        }
+
+        .schedule-table-shell {
+            overflow-x: auto;
+            border-radius: 16px;
+            background: #ffffff;
+            border: 1px solid #dfe5f3;
+            box-shadow: 0 6px 18px rgba(93, 111, 197, 0.08);
+        }
+
+        .schedule-table {
+            width: 100%;
+            min-width: 880px;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+            margin-bottom: 0;
+        }
+
+        .schedule-table thead {
+            background: linear-gradient(90deg, #6682f0 0%, #7a52b4 100%);
+            color: white;
+        }
+
+        .schedule-table th {
+            padding: 22px 22px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 17px;
+            border-right: 1px solid rgba(255, 255, 255, 0.16);
+            color: white;
+            white-space: nowrap;
+        }
+
+        .schedule-table th:first-child {
+            border-top-left-radius: 16px;
+        }
+
+        .schedule-table th:last-child {
+            border-right: none;
+            border-top-right-radius: 16px;
+        }
+
+        .schedule-table td {
+            padding: 17px 22px;
+            border-bottom: 1px solid #e4e8f2;
+            font-size: 15px;
+            color: #38445e;
+            text-align: left;
+            vertical-align: middle;
+            height: 58px;
+            background: #ffffff;
+        }
+
+        .schedule-table .schedule-data-row.is-alt td {
+            background: #f7f8fd;
+        }
+
+        .schedule-table .schedule-data-row:hover td {
+            background: #f3f5fd;
+        }
+
+        .schedule-table .day-separator-row td {
+            background: #6780e9;
+            color: #44485a;
+            font-weight: 500;
+            padding: 20px 20px;
+            border-bottom: none;
+            text-align: left;
+            font-size: 18px;
+            letter-spacing: 0.1px;
+        }
+
+        .schedule-table .time-cell {
+            font-weight: 700;
+            color: #6d82f2;
+            min-width: 160px;
+        }
+
+        .schedule-table .subject {
+            font-weight: 500;
+            color: #38445e;
+            min-width: 190px;
+        }
+
+        .schedule-table tbody tr:last-child td:first-child {
+            border-bottom-left-radius: 16px;
+        }
+
+        .schedule-table tbody tr:last-child td:last-child {
+            border-bottom-right-radius: 16px;
+        }
+
+        .schedule-raw-text {
+            max-height: 600px;
+            overflow-y: auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fb 0%, #f9faff 100%);
+            border-radius: 10px;
+            border: 2px solid #e8eef7;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 13px;
+            color: #4a5568;
             line-height: 1.6;
             white-space: pre-wrap;
-            word-wrap: break-word;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            max-height: 400px;
-            overflow-y: auto;
-            padding: 15px;
-            background: white;
-            border-radius: 6px;
-            border: 1px solid #ddd;
+            word-break: break-word;
+        }
+
+        .schedule-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e8eef7;
+            align-items: center;
+        }
+
+        .schedule-tab-btn {
+            padding: 12px 18px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: #a0aec0;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .schedule-tab-btn.active {
+            color: #667EEA;
+            border-bottom-color: #667EEA;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        }
+
+        .schedule-tab-btn:hover {
+            color: #667EEA;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        }
+
+        .schedule-tab-btn[style*="color: #10B981"] {
+            color: #10B981 !important;
+        }
+
+        .schedule-tab-btn[style*="color: #10B981"]:hover {
+            color: #059669 !important;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+        }
+
+        .schedule-tab-btn[style*="color: #EF4444"] {
+            color: #EF4444 !important;
+        }
+
+        .schedule-tab-btn[style*="color: #EF4444"]:hover {
+            color: #DC2626 !important;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+        }
+
+        .schedule-tab-content {
+            display: none;
+        }
+
+        .schedule-tab-content.active {
+            display: block;
         }
 
         .error-message {
-            color: #d32f2f;
-            padding: 12px;
-            background: #ffebee;
-            border-radius: 6px;
-            margin-top: 10px;
-            border-left: 4px solid #d32f2f;
+            color: #c7254e;
+            padding: 16px 18px;
+            background: linear-gradient(135deg, #ffe5e5 0%, #ffe0e0 100%);
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 4px solid #e74c3c;
+            border: 2px solid #ffcccc;
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.1);
+            font-weight: 500;
         }
 
         .success-message {
-            color: #388e3c;
-            padding: 12px;
-            background: #e8f5e9;
-            border-radius: 6px;
-            margin-top: 10px;
-            border-left: 4px solid #388e3c;
+            color: #27ae60;
+            padding: 16px 18px;
+            background: linear-gradient(135deg, #e8f8f5 0%, #edf7f4 100%);
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 4px solid #27ae60;
+            border: 2px solid #d5f4e6;
+            box-shadow: 0 2px 8px rgba(39, 174, 96, 0.1);
+            font-weight: 500;
         }
 
         .settings-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 18px;
+            margin-bottom: 25px;
         }
 
         .setting-item {
             display: flex;
             flex-direction: column;
+            background: linear-gradient(135deg, #f9faff 0%, #f5f7ff 100%);
+            padding: 14px;
+            border-radius: 10px;
+            border: 2px solid #e8eef7;
         }
 
         .setting-item label {
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 600;
-            font-size: 13px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.2px;
         }
 
         .setting-item input,
         .setting-item select {
-            padding: 8px;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 13px;
+            padding: 10px 12px;
+            border: 2px solid #e8eef7;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            color: #2c3e50;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .setting-item input:focus,
         .setting-item select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #667EEA;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
         }
 
         @media (max-width: 768px) {
@@ -296,18 +514,104 @@
             .header h1 {
                 font-size: 22px;
             }
+
+            .schedule-info-bar {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .result-section {
+                padding: 18px;
+                border-radius: 18px;
+            }
+
+            .schedule-table-shell {
+                border-radius: 14px;
+            }
+
+            .schedule-table {
+                min-width: 720px;
+            }
+
+            .schedule-table th {
+                padding: 18px 16px;
+                font-size: 15px;
+            }
+
+            .schedule-table td {
+                padding: 14px 16px;
+                font-size: 14px;
+                height: 52px;
+            }
+
+            .schedule-table .day-separator-row td {
+                font-size: 17px;
+                padding: 16px;
+            }
+
+            .schedule-table .time-cell {
+                min-width: 118px;
+            }
+
+            .schedule-table .subject {
+                min-width: 150px;
+            }
         }
 
         .note {
-            font-size: 12px;
-            color: #999;
-            margin-top: 5px;
+            font-size: 13px;
+            color: #a0aec0;
+            margin-top: 8px;
+            font-style: italic;
+            font-weight: 500;
         }
 
         .separator {
-            height: 1px;
-            background: #e0e0e0;
-            margin: 20px 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #e8eef7, transparent);
+            margin: 28px 0;
+            border-radius: 1px;
+        }
+
+        /* Стили для режима редактирования */
+        .schedule-table input[type="text"] {
+            font-size: 14px;
+            padding: 8px 10px;
+            border: 1px solid #667EEA;
+            border-radius: 4px;
+            font-family: inherit;
+            background: white;
+            color: #2c3e50;
+            transition: all 0.2s ease;
+        }
+
+        .schedule-table input[type="text"]:focus {
+            outline: none;
+            border-color: #764BA2;
+            box-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+            background: #f9faff;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -315,18 +619,423 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState } = React;
 
-        const DEFAULT_PROMPT = "Сгенерируй расписание на неделю для начальных классов (всего 1-4 - 4 класса), на 5 дней в неделю. Предметы - изо, труд, физкультура, музыка - не должны накладываться друг на друга. У 1го класса максимум 5 уроков, у других - 6. У каждого класса свой классный руководитель. Предметы не доложны повторяться в один день для одного класса. Расписание должно быть в виде таблицы с указанием времени, предмета и классного руководителя. Время уроков: 8:30-9:15, 9:30-10:15, 10:30-11:15, 11:30-12:15, 13:00-13:45, 14:00-14:45.";
+        const DEFAULT_PROMPT = `Сгенерируй расписание занятий на всю неделю (понедельник-пятница) для начальных классов (1-4 классы). 
 
-        const DEFAULT_SYSTEM_PROMPT = "Ты - полезный AI ассистент.";
+ТРЕБОВАНИЯ К ФОРМАТУ:
+1. Выведи результат в виде четких markdown таблиц
+2. Выведи таблицы в следующем порядке: ПОНЕДЕЛЬНИК, ВТОРНИК, СРЕДА, ЧЕТВЕРГ, ПЯТНИЦА
+3. Каждая таблица должна иметь структуру:
+   | Время | 1 класс | 2 класс | 3 класс | 4 класс |
+4. Используй эти времена уроков:
+   - Для 1 класса: 8:30-9:15, 9:30-10:15, 10:30-11:15, 11:30-12:15 (4 урока)
+   - Для 2, 3, 4 классов: 8:30-9:15, 9:30-10:15, 10:30-11:15, 11:30-12:15, 12:30-13:15 (5 уроков)
+
+ТРЕБОВАНИЯ К СОДЕРЖАНИЮ:
+- Предметы для распределения: Математика, Русский язык, Окружающий мир, Английский язык, Литературное чтение, Физкультура, Музыка, Изо
+- ОСОБОЕ ПРАВИЛО: "Разговоры о важном" ТОЛЬКО в понедельник в 8:30-9:15 для ВСЕХ классов. ВО ВТОРНИК, СРЕДУ, ЧЕТВЕРГ, ПЯТНИЦУ этого предмета НЕ ДОЛЖНО БЫТЬ!
+- ОБЯЗАТЕЛЬНОЕ ОГРАНИЧЕНИЕ НА СПЕЦИАЛЬНЫЕ ПРЕДМЕТЫ: Физкультура, Музыка и Изо ДОЛЖНЫ быть ТОЛЬКО в РАЗНЫЕ ВРЕМЕНА для разных классов! Если один класс на физкультуре, то в это же время другие классы НЕ могут быть на музыке или изо. Эти три предмета не должны совпадать по времени между классами!
+- Предметы не должны повторяться в один день для одного класса
+- У 1-го класса 4 урока, у 2-4 классов по 5 уроков
+- Заполни все ячейки таблицы предметами
+- Расписание должно быть разнообразным от дня к дню
+
+ПРИМЕР ФОРМАТА ВЫВОДА:
+Понедельник
+
+| Время | 1 класс | 2 класс | 3 класс | 4 класс |
+|-------|---------|---------|---------|---------|
+| 8:30-9:15 | Разговоры о важном | Разговоры о важном | Разговоры о важном | Разговоры о важном |
+| 9:30-10:15 | Русский язык | Математика | Русский язык | Математика |
+| 10:30-11:15 | Окружающий мир | Литературное чтение | Окружающий мир | Литературное чтение |
+| 11:30-12:15 | Английский язык | Физкультура | Английский язык | Физкультура |
+| 12:30-13:15 | — | Музыка | Музыка | Окружающий мир |
+
+Вторник
+
+| Время | 1 класс | 2 класс | 3 класс | 4 класс |
+|-------|---------|---------|---------|---------|
+| 8:30-9:15 | Русский язык | Математика | Русский язык | Математика |
+| 9:30-10:15 | Математика | Русский язык | Математика | Русский язык |
+| 10:30-11:15 | Музыка | Окружающий мир | Физкультура | Окружающий мир |
+| 11:30-12:15 | Литературное чтение | Английский язык | Литературное чтение | Английский язык |
+| 12:30-13:15 | — | Изо | Окружающий мир | Изо |
+
+И аналогично заполни СРЕДУ, ЧЕТВЕРГ и ПЯТНИЦУ по этому же формату.`;
+
+        const DEFAULT_SYSTEM_PROMPT = "Ты - эксперт в создании школьного расписания. Твоя задача - генерировать понятные и практичные расписания занятий на полную неделю. Всегда выводи расписание в виде четких markdown таблиц с вертикальными разделителями. Убедись, что предметы распределены логично, разнообразно от дня к дню и не накладываются друг на друга для специальных предметов. ВАЖНО: 'Разговоры о важном' ДОЛЖНО быть ТОЛЬКО в понедельник в 8:30-9:15 у ВСЕХ классов. ВО ВСЕ ОСТАЛЬНЫЕ ДНИ этого предмета НЕ ДОЛЖНО БЫТЬ ВООБЩЕ! КРИТИЧНО: Физкультура, Музыка и Изобразительное искусство ДОЛЖНЫ быть в РАЗНЫЕ ВРЕМЕНА для разных классов! Когда один класс на физкультуре, другие классы НЕ могут быть на музыке или изо в это же время!";
+
+        const DEFAULT_REQUIRED_SUBJECTS = `Разговоры о важном
+Русский язык
+Математика
+Окружающий мир
+Английский язык
+Литературное чтение
+Физкультура
+Музыка
+Изо`;
+
+        // Функция для парсинга расписания из текста
+        function parseScheduleTable(text) {
+            const timePattern = /^\d{1,2}:\d{2}\s*[-–—]\s*\d{1,2}:\d{2}$/;
+            const lines = text.replace(/\r/g, '').split('\n');
+
+            const normalizeTitle = (line) => (
+                line
+                    .replace(/^#{1,6}\s*/, '')
+                    .replace(/^\*\*\s*/, '')
+                    .replace(/\s*\*\*$/, '')
+                    .trim()
+            );
+
+            const splitMarkdownRow = (line) => {
+                const trimmed = line.trim();
+                const cells = trimmed.split('|').map(cell => cell.trim());
+
+                if (trimmed.startsWith('|')) {
+                    cells.shift();
+                }
+
+                if (trimmed.endsWith('|')) {
+                    cells.pop();
+                }
+
+                return cells;
+            };
+
+            const isSeparatorRow = (line) => {
+                const stripped = line.replace(/\s/g, '').replace(/[|:]/g, '');
+                return stripped.length > 0 && /^-+$/.test(stripped);
+            };
+
+            const normalizeTime = (value) => (
+                value
+                    .replace(/[–—]/g, '-')
+                    .replace(/\s*-\s*/g, '-')
+                    .trim()
+            );
+
+            const groupedData = [];
+            let headers = [];
+            let pendingTitle = '';
+            let currentDay = '';
+            let currentHeaders = [];
+            let currentRows = [];
+
+            const flushCurrentGroup = () => {
+                if (!currentDay || currentRows.length === 0) {
+                    return;
+                }
+
+                groupedData.push({
+                    day: currentDay,
+                    rows: currentRows
+                });
+
+                currentDay = '';
+                currentHeaders = [];
+                currentRows = [];
+            };
+
+            lines.forEach((rawLine) => {
+                const line = rawLine.trim();
+
+                if (!line) {
+                    return;
+                }
+
+                if (!line.includes('|')) {
+                    if (currentRows.length > 0) {
+                        flushCurrentGroup();
+                    }
+
+                    pendingTitle = normalizeTitle(line);
+                    return;
+                }
+
+                if (isSeparatorRow(line)) {
+                    return;
+                }
+
+                const cells = splitMarkdownRow(line);
+                if (cells.length < 2) {
+                    return;
+                }
+
+                const normalizedCells = cells.map(cell => cell.trim());
+                const firstCell = normalizeTime(normalizedCells[0]);
+
+                if (!currentDay) {
+                    currentDay = pendingTitle || `День ${groupedData.length + 1}`;
+                }
+
+                if (currentHeaders.length === 0 && !timePattern.test(firstCell)) {
+                    currentHeaders = normalizedCells;
+                    if (headers.length === 0) {
+                        headers = normalizedCells;
+                    }
+                    return;
+                }
+
+                if (timePattern.test(firstCell)) {
+                    currentRows.push([firstCell, ...normalizedCells.slice(1)]);
+                }
+            });
+
+            flushCurrentGroup();
+
+            const maxColumns = Math.max(
+                headers.length,
+                ...groupedData.map(group =>
+                    group.rows.reduce((max, row) => Math.max(max, row.length), 0)
+                ),
+                0
+            );
+
+            if (maxColumns === 0) {
+                return {
+                    headers: [],
+                    groupedData: [],
+                    rawText: text
+                };
+            }
+
+            const finalHeaders = headers.length > 0 ? headers.slice(0, maxColumns) : ['Время'];
+            while (finalHeaders.length < maxColumns) {
+                finalHeaders.push(`${finalHeaders.length} класс`);
+            }
+
+            const normalizedGroups = groupedData.map(group => ({
+                day: group.day,
+                rows: group.rows.map(row => {
+                    if (row.length >= maxColumns) {
+                        return row.slice(0, maxColumns);
+                    }
+
+                    return [...row, ...Array(maxColumns - row.length).fill('')];
+                })
+            }));
+
+            return {
+                headers: finalHeaders,
+                groupedData: normalizedGroups,
+                rawText: text
+            };
+        }
+
+        // Компонент для отображения таблицы расписания
+        function ScheduleTableView({ text, onEditSave }) {
+            const [viewMode, setViewMode] = useState('table');
+            const [editMode, setEditMode] = useState(false);
+            const [editData, setEditData] = useState(null);
+            const { headers, groupedData, rawText } = parseScheduleTable(text);
+            const hasTableData = headers.length > 0 && groupedData.length > 0;
+
+            // Инициализировать данные для редактирования
+            const initializeEditData = () => {
+                const newEditData = {};
+                groupedData.forEach((dayGroup, dayIdx) => {
+                    dayGroup.rows.forEach((row, rowIdx) => {
+                        row.forEach((cell, cellIdx) => {
+                            const key = `${dayIdx}-${rowIdx}-${cellIdx}`;
+                            newEditData[key] = cell;
+                        });
+                    });
+                });
+                setEditData(newEditData);
+            };
+
+            const handleEditToggle = () => {
+                if (!editMode) {
+                    initializeEditData();
+                }
+                setEditMode(!editMode);
+            };
+
+            const handleCellChange = (dayIdx, rowIdx, cellIdx, newValue) => {
+                const key = `${dayIdx}-${rowIdx}-${cellIdx}`;
+                setEditData(prev => ({
+                    ...prev,
+                    [key]: newValue
+                }));
+            };
+
+            // Функция для построения отредактированного markdown текста
+            const buildEditedText = () => {
+                let editedText = '';
+                
+                groupedData.forEach((dayGroup, dayIdx) => {
+                    editedText += dayGroup.day + '\n\n';
+                    editedText += '| ' + headers.join(' | ') + ' |\n';
+                    editedText += '|' + headers.map(() => '-------').join('|') + '|\n';
+                    
+                    dayGroup.rows.forEach((row, rowIdx) => {
+                        const newRow = row.map((cell, cellIdx) => {
+                            const key = `${dayIdx}-${rowIdx}-${cellIdx}`;
+                            return editData[key] || cell;
+                        });
+                        editedText += '| ' + newRow.join(' | ') + ' |\n';
+                    });
+                    
+                    editedText += '\n';
+                });
+                
+                return editedText;
+            };
+
+            const handleSaveEdit = () => {
+                const editedText = buildEditedText();
+                if (onEditSave) {
+                    onEditSave(editedText);
+                }
+                setEditMode(false);
+            };
+
+            const handleCancelEdit = () => {
+                setEditData(null);
+                setEditMode(false);
+            };
+
+            if (!hasTableData) {
+                return (
+                    <div className="schedule-raw-text">
+                        {text}
+                    </div>
+                );
+            }
+
+            return (
+                <div>
+                    <div className="schedule-tabs">
+                        <button 
+                            className={`schedule-tab-btn ${viewMode === 'table' ? 'active' : ''}`}
+                            onClick={() => setViewMode('table')}
+                        >
+                            📋 Таблица
+                        </button>
+                        <button 
+                            className={`schedule-tab-btn ${viewMode === 'text' ? 'active' : ''}`}
+                            onClick={() => setViewMode('text')}
+                        >
+                            📝 Исходный текст
+                        </button>
+                        <div style={{ marginLeft: 'auto', display: 'flex', gap: '8px' }}>
+                            {viewMode === 'table' && (
+                                <>
+                                    <button
+                                        className={`schedule-tab-btn ${editMode ? 'active' : ''}`}
+                                        onClick={handleEditToggle}
+                                        style={{ marginLeft: 'auto' }}
+                                    >
+                                        {editMode ? '✓ Редактирование' : '✏️ Редактировать'}
+                                    </button>
+                                    {editMode && (
+                                        <>
+                                            <button
+                                                className="schedule-tab-btn"
+                                                onClick={handleSaveEdit}
+                                                style={{ color: '#10B981' }}
+                                            >
+                                                💾 Сохранить
+                                            </button>
+                                            <button
+                                                className="schedule-tab-btn"
+                                                onClick={handleCancelEdit}
+                                                style={{ color: '#EF4444' }}
+                                            >
+                                                ❌ Отмена
+                                            </button>
+                                        </>
+                                    )}
+                                </>
+                            )}
+                        </div>
+                    </div>
+
+                    {viewMode === 'table' && (
+                        <div className="schedule-table-shell">
+                            <table className="schedule-table">
+                                <thead>
+                                    <tr>
+                                        {headers.map((header, idx) => (
+                                            <th key={idx}>
+                                                {header}
+                                            </th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {groupedData.map((dayGroup, dayGroupIdx) => (
+                                        <React.Fragment key={dayGroupIdx}>
+                                            <tr className="day-separator-row" data-day-separator="true">
+                                                <td colSpan={headers.length}>
+                                                    {dayGroup.day}
+                                                </td>
+                                            </tr>
+                                            {dayGroup.rows.map((row, rowIdx) => (
+                                                <tr
+                                                    key={`${dayGroupIdx}-${rowIdx}`}
+                                                    className={`schedule-data-row ${rowIdx % 2 === 1 ? 'is-alt' : ''}`}
+                                                >
+                                                    {row.map((cell, cellIdx) => {
+                                                        let className = 'subject';
+                                                        
+                                                        if (cellIdx === 0) {
+                                                            className = 'time-cell';
+                                                        }
+
+                                                        const key = `${dayGroupIdx}-${rowIdx}-${cellIdx}`;
+                                                        const cellValue = editData ? (editData[key] || '') : cell;
+                                                        
+                                                        return (
+                                                            <td key={cellIdx} className={className} style={editMode ? { padding: '4px' } : {}}>
+                                                                {editMode && cellIdx !== 0 ? (
+                                                                    <input
+                                                                        type="text"
+                                                                        value={cellValue}
+                                                                        onChange={(e) => handleCellChange(dayGroupIdx, rowIdx, cellIdx, e.target.value)}
+                                                                        style={{
+                                                                            width: '100%',
+                                                                            padding: '8px',
+                                                                            border: '1px solid #667EEA',
+                                                                            borderRadius: '4px',
+                                                                            fontSize: '14px',
+                                                                            fontFamily: 'inherit'
+                                                                        }}
+                                                                    />
+                                                                ) : (
+                                                                    cellValue
+                                                                )}
+                                                            </td>
+                                                        );
+                                                    })}
+                                                </tr>
+                                            ))}
+                                        </React.Fragment>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+
+                    {viewMode === 'text' && (
+                        <div className="schedule-raw-text">
+                            {rawText}
+                        </div>
+                    )}
+                </div>
+            );
+        }
 
         function ScheduleGenerator() {
             const [prompt, setPrompt] = useState(DEFAULT_PROMPT);
             const [systemPrompt, setSystemPrompt] = useState(DEFAULT_SYSTEM_PROMPT);
-            const [maxTokens, setMaxTokens] = useState(700);
+            const [maxTokens, setMaxTokens] = useState(3000);
             const [temperature, setTemperature] = useState(0.7);
             const [provider, setProvider] = useState("yandexgpt");
+            const [requiredSubjects, setRequiredSubjects] = useState(DEFAULT_REQUIRED_SUBJECTS);
+            const [showPrompts, setShowPrompts] = useState(false);
             const [loading, setLoading] = useState(false);
             const [result, setResult] = useState(null);
             const [error, setError] = useState(null);
@@ -344,13 +1053,21 @@
                 setError(null);
 
                 try {
+                    // Формируем промпт с обязательными предметами если они указаны
+                    let finalPrompt = prompt || DEFAULT_PROMPT;
+                    if (requiredSubjects.trim()) {
+                        const subjectsList = requiredSubjects.split(/,|;|\n/).filter(s => s.trim()).map(s => s.trim());
+                        const subjectsInfo = `\n\nОБЯЗАТЕЛЬНЫЕ ПРЕДМЕТЫ, которые ДОЛЖНЫ быть в расписании каждого класса:\n${subjectsList.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nУбедись, что все эти предметы распределены между классами разнообразно и логично!`;
+                        finalPrompt = finalPrompt + subjectsInfo;
+                    }
+
                     const response = await fetch("/api/v1/generate", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            prompt: prompt || DEFAULT_PROMPT,
+                            prompt: finalPrompt,
                             system_prompt: systemPrompt || DEFAULT_SYSTEM_PROMPT,
                             max_tokens: parseInt(maxTokens),
                             temperature: parseFloat(temperature),
@@ -379,6 +1096,35 @@
                 }
 
                 setLoading(false);
+            };
+
+            const handleEditSave = (editedText) => {
+                // Обновляем результат с отредактированным текстом
+                setResult(prev => ({
+                    ...prev,
+                    text: editedText
+                }));
+                // Показываем временное уведомление
+                const notification = document.createElement('div');
+                notification.textContent = '✓ Изменения сохранены! Excel будет экспортирован с обновленным расписанием';
+                notification.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+                    color: white;
+                    padding: 16px 24px;
+                    border-radius: 8px;
+                    font-weight: 600;
+                    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+                    z-index: 1000;
+                    animation: slideIn 0.3s ease;
+                `;
+                document.body.appendChild(notification);
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => notification.remove(), 300);
+                }, 3000);
             };
 
             const downloadExcel = async () => {
@@ -416,6 +1162,7 @@
             const resetForm = () => {
                 setPrompt(DEFAULT_PROMPT);
                 setSystemPrompt(DEFAULT_SYSTEM_PROMPT);
+                setRequiredSubjects(DEFAULT_REQUIRED_SUBJECTS);
                 setResult(null);
                 setError(null);
             };
@@ -427,73 +1174,65 @@
                         <p>Используйте ИИ для автоматического создания школьного расписания</p>
                     </div>
 
-                    <div className="form-group">
-                        <label htmlFor="prompt">Основной промпт</label>
-                        <textarea
-                            id="prompt"
-                            value={prompt}
-                            onChange={(e) => setPrompt(e.target.value)}
-                            placeholder="Введите основной промпт для генерирования расписания..."
-                            disabled={loading}
-                        />
-                        <span className="note">Это текст, на основе которого ИИ будет генерировать расписание</span>
-                    </div>
+                    <button 
+                        className="btn-toggle-prompts"
+                        onClick={() => setShowPrompts(!showPrompts)}
+                        style={{
+                            marginBottom: "20px",
+                            background: showPrompts ? "linear-gradient(135deg, #667EEA 0%, #764BA2 100%)" : "linear-gradient(135deg, #a0aec0 0%, #718096 100%)",
+                            color: "white",
+                            padding: "12px 20px",
+                            border: "none",
+                            borderRadius: "10px",
+                            cursor: "pointer",
+                            fontWeight: "600",
+                            fontSize: "14px",
+                            transition: "all 0.3s ease",
+                            width: "auto"
+                        }}
+                    >
+                        {showPrompts ? "🔽 Скрыть промпты" : "▶️ Показать промпты"}
+                    </button>
+
+                    {showPrompts && (
+                        <>
+                            <div className="form-group">
+                                <label htmlFor="prompt">Основной промпт</label>
+                                <textarea
+                                    id="prompt"
+                                    value={prompt}
+                                    onChange={(e) => setPrompt(e.target.value)}
+                                    placeholder="Введите основной промпт для генерирования расписания..."
+                                    disabled={loading}
+                                />
+                                <span className="note">Это текст, на основе которого ИИ будет генерировать расписание</span>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="systemPrompt">Системный промпт</label>
+                                <textarea
+                                    id="systemPrompt"
+                                    value={systemPrompt}
+                                    onChange={(e) => setSystemPrompt(e.target.value)}
+                                    placeholder="Введите системный промпт..."
+                                    disabled={loading}
+                                    style={{ minHeight: "80px" }}
+                                />
+                            </div>
+                        </>
+                    )}
 
                     <div className="form-group">
-                        <label htmlFor="systemPrompt">Системный промпт</label>
+                        <label htmlFor="requiredSubjects">Обязательные предметы</label>
                         <textarea
-                            id="systemPrompt"
-                            value={systemPrompt}
-                            onChange={(e) => setSystemPrompt(e.target.value)}
-                            placeholder="Введите системный промпт..."
+                            id="requiredSubjects"
+                            value={requiredSubjects}
+                            onChange={(e) => setRequiredSubjects(e.target.value)}
+                            placeholder="Укажите обязательные предметы, которые должны быть в расписании (каждый на новой строке или через запятую/точку с запятой). Можете добавлять, удалять или изменять предметы."
                             disabled={loading}
-                            style={{ minHeight: "80px" }}
+                            style={{ minHeight: "100px" }}
                         />
-                    </div>
-
-                    <div className="separator"></div>
-
-                    <div className="settings-grid">
-                        <div className="setting-item">
-                            <label htmlFor="provider">Провайдер ИИ</label>
-                            <select
-                                id="provider"
-                                value={provider}
-                                onChange={(e) => setProvider(e.target.value)}
-                                disabled={loading}
-                            >
-                                {providers.map(p => (
-                                    <option key={p.value} value={p.value}>{p.label}</option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <div className="setting-item">
-                            <label htmlFor="maxTokens">Макс токенов</label>
-                            <input
-                                id="maxTokens"
-                                type="number"
-                                value={maxTokens}
-                                onChange={(e) => setMaxTokens(e.target.value)}
-                                min="1"
-                                max="5000"
-                                disabled={loading}
-                            />
-                        </div>
-
-                        <div className="setting-item">
-                            <label htmlFor="temperature">Температура</label>
-                            <input
-                                id="temperature"
-                                type="number"
-                                value={temperature}
-                                onChange={(e) => setTemperature(e.target.value)}
-                                min="0.1"
-                                max="1"
-                                step="0.1"
-                                disabled={loading}
-                            />
-                        </div>
+                        <span className="note">Эти предметы будут обязательно включены в расписание для всех классов. Вы можете добавлять, удалять или изменять предметы по необходимости.</span>
                     </div>
 
                     <div className="button-group">
@@ -539,11 +1278,22 @@
                     {result && (
                         <div className="result-section">
                             <h3>📊 Сгенерированное расписание</h3>
-                            <div style={{ marginBottom: "10px", fontSize: "13px", color: "#666" }}>
-                                Провайдер: <strong>{result.provider}</strong> | Модель: <strong>{result.model}</strong>
-                                {result.tokens_used && ` | Токенов: ${result.tokens_used}`}
+                            <div className="schedule-info-bar">
+                                <div className="schedule-info-item">
+                                    Провайдер: <strong>{result.provider}</strong>
+                                </div>
+                                <div className="schedule-info-item">
+                                    Модель: <strong>{result.model}</strong>
+                                </div>
+                                {result.tokens_used && (
+                                    <div className="schedule-info-item">
+                                        Токенов: <strong>{result.tokens_used}</strong>
+                                    </div>
+                                )}
                             </div>
-                            <div className="result-text">{result.text}</div>
+                            
+                            <ScheduleTableView text={result.text} onEditSave={handleEditSave} />
+                            
                             <div className="success-message" style={{ marginTop: "15px" }}>
                                 ✅ Расписание успешно сгенерировано! Нажмите "Скачать Excel" для экспорта.
                             </div>
